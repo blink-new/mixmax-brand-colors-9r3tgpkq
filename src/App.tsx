@@ -2,280 +2,310 @@ import { useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card'
 import { Button } from './components/ui/button'
 import { Badge } from './components/ui/badge'
-import { Input } from './components/ui/input'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs'
-import { Progress } from './components/ui/progress'
-import { Avatar, AvatarFallback, AvatarImage } from './components/ui/avatar'
-import { Bell, Mail, Settings, Users, BarChart3, Calendar, Search, Plus } from 'lucide-react'
+import { Avatar, AvatarFallback } from './components/ui/avatar'
+import { 
+  Calendar, 
+  Clock, 
+  Mail, 
+  Phone, 
+  MapPin, 
+  CheckCircle2, 
+  Circle, 
+  Star,
+  MessageSquare,
+  ArrowRight,
+  CalendarDays,
+  Settings,
+  MoreHorizontal,
+  Lightbulb,
+  Target
+} from 'lucide-react'
 
 function App() {
-  const [activeTab, setActiveTab] = useState('dashboard')
+  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({})
 
-  const stats = [
-    { label: 'Total Emails', value: '12,345', change: '+12%', trend: 'up' },
-    { label: 'Open Rate', value: '68.2%', change: '+5.4%', trend: 'up' },
-    { label: 'Click Rate', value: '24.1%', change: '-2.1%', trend: 'down' },
-    { label: 'Conversions', value: '1,234', change: '+18%', trend: 'up' },
+  const toggleCheck = (id: string) => {
+    setCheckedItems(prev => ({ ...prev, [id]: !prev[id] }))
+  }
+
+  const actionItems = [
+    {
+      id: 'tech-docs',
+      text: 'Send technical documentation for security features',
+      dueDate: '2024-01-16',
+      priority: 'high'
+    },
+    {
+      id: 'integration-proposal',
+      text: 'Prepare custom integration proposal',
+      dueDate: '2024-01-18',
+      priority: 'high'
+    },
+    {
+      id: 'deep-dive',
+      text: 'Schedule technical deep-dive session',
+      dueDate: '2024-01-20',
+      priority: 'medium'
+    }
   ]
 
-  const campaigns = [
-    { name: 'Q4 Product Launch', status: 'Active', progress: 85, priority: 'high' },
-    { name: 'Holiday Newsletter', status: 'Draft', progress: 45, priority: 'medium' },
-    { name: 'Customer Onboarding', status: 'Scheduled', progress: 100, priority: 'positive' },
-    { name: 'Feedback Survey', status: 'Paused', progress: 30, priority: 'medium' },
-  ]
-
-  const team = [
-    { name: 'Sarah Chen', role: 'Marketing Manager', avatar: 'SC', status: 'online' },
-    { name: 'Mike Johnson', role: 'Email Specialist', avatar: 'MJ', status: 'away' },
-    { name: 'Emily Davis', role: 'Designer', avatar: 'ED', status: 'online' },
-    { name: 'Alex Rodriguez', role: 'Analyst', avatar: 'AR', status: 'offline' },
+  const keyPoints = [
+    'Budget approved for Q1',
+    'Pain points with legacy system',
+    'Timeline: Implementation in March'
   ]
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header with Mixmax gradient */}
-      <header className="mixmax-gradient text-white shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+      {/* Header */}
+      <header className="bg-white border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold">Mixmax</h1>
-              <nav className="hidden md:flex space-x-6">
-                <button className="text-white/90 hover:text-white transition-colors">Dashboard</button>
-                <button className="text-white/90 hover:text-white transition-colors">Campaigns</button>
-                <button className="text-white/90 hover:text-white transition-colors">Analytics</button>
-                <button className="text-white/90 hover:text-white transition-colors">Team</button>
-              </nav>
-            </div>
-            <div className="flex items-center space-x-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 h-4 w-4" />
-                <Input 
-                  placeholder="Search..." 
-                  className="pl-10 bg-white/20 border-white/30 text-white placeholder:text-white/60 focus:bg-white/30"
-                />
+              <div className="w-8 h-8 mixmax-gradient rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">M</span>
               </div>
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
-                <Bell className="h-5 w-5" />
+              <div>
+                <h1 className="text-lg font-semibold text-gray-900">Meeting summary: Communicate working session</h1>
+                <p className="text-sm text-gray-500">Inbox</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Button variant="ghost" size="icon">
+                <Settings className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
-                <Settings className="h-5 w-5" />
+              <Button variant="ghost" size="icon">
+                <MoreHorizontal className="h-4 w-4" />
               </Button>
-              <Avatar>
-                <AvatarFallback className="bg-white/20 text-white">JD</AvatarFallback>
-              </Avatar>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Welcome Section */}
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome back, John!</h2>
-          <p className="text-gray-600">Here's what's happening with your email campaigns today.</p>
-        </div>
-
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {stats.map((stat, index) => (
-            <Card key={index} className="mixmax-card">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600">{stat.label}</p>
-                    <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-                  </div>
-                  <div className={`text-sm font-medium ${
-                    stat.trend === 'up' ? 'text-green-600' : 'text-red-600'
-                  }`}>
-                    {stat.change}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-                <TabsTrigger value="campaigns">Campaigns</TabsTrigger>
-                <TabsTrigger value="analytics">Analytics</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="dashboard" className="space-y-6">
-                <Card className="mixmax-card">
-                  <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
-                      <BarChart3 className="h-5 w-5 text-indigo-500" />
-                      <span>Performance Overview</span>
-                    </CardTitle>
-                    <CardDescription>Your email marketing performance this month</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div>
-                        <div className="flex justify-between text-sm mb-2">
-                          <span>Email Deliverability</span>
-                          <span className="font-medium">94%</span>
-                        </div>
-                        <Progress value={94} className="h-2" />
-                      </div>
-                      <div>
-                        <div className="flex justify-between text-sm mb-2">
-                          <span>Engagement Rate</span>
-                          <span className="font-medium">68%</span>
-                        </div>
-                        <Progress value={68} className="h-2" />
-                      </div>
-                      <div>
-                        <div className="flex justify-between text-sm mb-2">
-                          <span>Conversion Rate</span>
-                          <span className="font-medium">12%</span>
-                        </div>
-                        <Progress value={12} className="h-2" />
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="campaigns" className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-gray-900">Active Campaigns</h3>
-                  <Button className="mixmax-button-primary">
-                    <Plus className="h-4 w-4 mr-2" />
-                    New Campaign
-                  </Button>
-                </div>
-                
-                <div className="space-y-4">
-                  {campaigns.map((campaign, index) => (
-                    <Card key={index} className="mixmax-card">
-                      <CardContent className="p-6">
-                        <div className="flex items-center justify-between mb-4">
-                          <div>
-                            <h4 className="font-semibold text-gray-900">{campaign.name}</h4>
-                            <p className="text-sm text-gray-600">{campaign.status}</p>
-                          </div>
-                          <Badge 
-                            variant="outline" 
-                            className={
-                              campaign.priority === 'high' ? 'mixmax-status-high' :
-                              campaign.priority === 'medium' ? 'mixmax-status-medium' :
-                              'mixmax-status-positive'
-                            }
-                          >
-                            {campaign.priority}
-                          </Badge>
-                        </div>
-                        <div>
-                          <div className="flex justify-between text-sm mb-2">
-                            <span>Progress</span>
-                            <span className="font-medium">{campaign.progress}%</span>
-                          </div>
-                          <Progress value={campaign.progress} className="h-2" />
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="analytics" className="space-y-6">
-                <Card className="mixmax-card">
-                  <CardHeader>
-                    <CardTitle>Analytics Dashboard</CardTitle>
-                    <CardDescription>Detailed insights into your email performance</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-center py-12">
-                      <BarChart3 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                      <h3 className="text-lg font-medium text-gray-900 mb-2">Advanced Analytics</h3>
-                      <p className="text-gray-600 mb-4">Get detailed insights into your email campaigns</p>
-                      <Button className="mixmax-button-primary">View Full Analytics</Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
+      <main className="max-w-6xl mx-auto px-6 py-8">
+        {/* Mixmax Notifications Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-3">
+            <div className="w-6 h-6 mixmax-gradient rounded flex items-center justify-center">
+              <span className="text-white font-bold text-xs">M</span>
+            </div>
+            <span className="text-sm font-medium text-gray-700">Mixmax Notifications</span>
           </div>
+          <div className="flex items-center space-x-2 text-sm text-gray-500">
+            <span>Wed, Jul 16, 7:05 PM (21 hours ago)</span>
+            <Star className="h-4 w-4" />
+          </div>
+        </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Team Section */}
+        {/* Main Header Card */}
+        <Card className="mixmax-card mb-8">
+          <CardContent className="p-0">
+            <div className="mixmax-gradient text-white p-8 rounded-t-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h1 className="text-3xl font-bold mb-2">Sales Meeting Preparation</h1>
+                  <p className="text-white/90 text-lg">Get ready for your upcoming sales meetings with comprehensive insights and preparation tools</p>
+                </div>
+                <div className="text-right">
+                  <div className="flex items-center space-x-2 text-white/90 mb-1">
+                    <span className="text-sm">Next Meeting</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <CalendarDays className="h-5 w-5" />
+                    <span className="text-xl font-semibold">10:00 AM</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Meeting Details */}
+        <Card className="mixmax-card mb-8">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                  <Target className="h-5 w-5 text-blue-600" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-semibold text-gray-900">Discovery Call with Acme Corp</h2>
+                  <div className="flex items-center space-x-4 text-sm text-gray-600 mt-1">
+                    <div className="flex items-center space-x-1">
+                      <Calendar className="h-4 w-4" />
+                      <span>2024-01-15</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Clock className="h-4 w-4" />
+                      <span>10:00 AM (60 min)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Badge className="mixmax-status-positive">Discovery</Badge>
+                <Button className="mixmax-button-primary">
+                  <ArrowRight className="h-4 w-4 mr-2" />
+                  Join Meeting
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Left Column */}
+          <div className="space-y-8">
+            {/* Prospect Information */}
             <Card className="mixmax-card">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <Users className="h-5 w-5 text-indigo-500" />
-                  <span>Team</span>
+                  <Star className="h-5 w-5 text-yellow-500" />
+                  <span>Prospect Information</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                {team.map((member, index) => (
-                  <div key={index} className="flex items-center space-x-3">
-                    <Avatar>
-                      <AvatarFallback className="bg-indigo-100 text-indigo-600">
-                        {member.avatar}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium text-gray-900">{member.name}</p>
-                      <p className="text-xs text-gray-600">{member.role}</p>
+              <CardContent className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <Avatar className="w-12 h-12">
+                    <AvatarFallback className="bg-indigo-100 text-indigo-600 text-lg font-semibold">
+                      SJ
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-gray-900">Sarah Johnson</h3>
+                    <p className="text-gray-600 mb-2">VP of Operations</p>
+                    <div className="flex items-center space-x-2 mb-2">
+                      <div className="w-4 h-4 bg-blue-600 rounded flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">A</span>
+                      </div>
+                      <span className="text-sm text-gray-700">Acme Corp</span>
                     </div>
-                    <div className={`w-2 h-2 rounded-full ${
-                      member.status === 'online' ? 'bg-green-500' :
-                      member.status === 'away' ? 'bg-yellow-500' :
-                      'bg-gray-400'
-                    }`} />
                   </div>
-                ))}
+                </div>
+
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-3 text-sm">
+                    <Mail className="h-4 w-4 text-gray-400" />
+                    <span className="text-gray-700">sarah.johnson@acme.com</span>
+                  </div>
+                  <div className="flex items-center space-x-3 text-sm">
+                    <Phone className="h-4 w-4 text-gray-400" />
+                    <span className="text-gray-700">+1 (555) 123-4567</span>
+                  </div>
+                  <div className="flex items-center space-x-3 text-sm">
+                    <MapPin className="h-4 w-4 text-gray-400" />
+                    <span className="text-gray-700">San Francisco, CA</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-2 pt-4">
+                  <Badge variant="outline" className="text-xs">Decision Maker</Badge>
+                  <Badge variant="outline" className="text-xs">Warm Lead</Badge>
+                  <Badge variant="outline" className="text-xs">Enterprise</Badge>
+                </div>
               </CardContent>
             </Card>
 
-            {/* Quick Actions */}
+            {/* Past Conversation Summary */}
             <Card className="mixmax-card">
               <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
+                <CardTitle className="flex items-center space-x-2">
+                  <MessageSquare className="h-5 w-5 text-blue-500" />
+                  <span>Past Conversation Summary</span>
+                </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <Button variant="outline" className="w-full justify-start">
-                  <Mail className="h-4 w-4 mr-2" />
-                  Create Email
-                </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  <Calendar className="h-4 w-4 mr-2" />
-                  Schedule Campaign
-                </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  <BarChart3 className="h-4 w-4 mr-2" />
-                  View Reports
-                </Button>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="border-l-4 border-blue-500 pl-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-medium text-gray-900">Discovery Call</h4>
+                      <div className="flex space-x-2">
+                        <Badge className="mixmax-status-positive text-xs">positive</Badge>
+                        <Badge className="mixmax-status-high text-xs">high</Badge>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2 text-sm text-gray-500 mb-3">
+                      <Clock className="h-3 w-3" />
+                      <span>2024-01-14</span>
+                    </div>
+                    <p className="text-sm text-gray-700 mb-4">
+                      Sarah expressed strong interest in our enterprise integration capabilities. She mentioned current pain points with their legacy system and budget approval for Q1 implementation.
+                    </p>
+                    
+                    <div>
+                      <h5 className="font-medium text-gray-900 mb-2">Key Points:</h5>
+                      <ul className="space-y-1">
+                        {keyPoints.map((point, index) => (
+                          <li key={index} className="flex items-start space-x-2 text-sm text-gray-700">
+                            <ArrowRight className="h-3 w-3 text-gray-400 mt-0.5 flex-shrink-0" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Right Column */}
+          <div className="space-y-8">
+            {/* Action Items from Last Meeting */}
+            <Card className="mixmax-card">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <CheckCircle2 className="h-5 w-5 text-green-500" />
+                  <span>Action Items from Last Meeting</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {actionItems.map((item) => (
+                    <div key={item.id} className="flex items-start space-x-3 p-3 rounded-lg border border-gray-100 hover:bg-gray-50 transition-colors">
+                      <button
+                        onClick={() => toggleCheck(item.id)}
+                        className="mt-0.5 flex-shrink-0"
+                      >
+                        {checkedItems[item.id] ? (
+                          <CheckCircle2 className="h-5 w-5 text-green-500" />
+                        ) : (
+                          <Circle className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                        )}
+                      </button>
+                      <div className="flex-1">
+                        <p className={`text-sm ${checkedItems[item.id] ? 'line-through text-gray-500' : 'text-gray-900'}`}>
+                          {item.text}
+                        </p>
+                        <div className="flex items-center space-x-3 mt-2">
+                          <span className="text-xs text-gray-500">Due: {item.dueDate}</span>
+                          <Badge 
+                            className={`text-xs ${
+                              item.priority === 'high' ? 'mixmax-status-high' : 'mixmax-status-medium'
+                            }`}
+                          >
+                            {item.priority}
+                          </Badge>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </CardContent>
             </Card>
 
-            {/* Recent Activity */}
+            {/* Need More Insights */}
             <Card className="mixmax-card">
-              <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="text-sm">
-                  <p className="font-medium text-gray-900">Campaign "Holiday Sale" sent</p>
-                  <p className="text-gray-600">2 hours ago</p>
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Lightbulb className="h-8 w-8 text-blue-600" />
                 </div>
-                <div className="text-sm">
-                  <p className="font-medium text-gray-900">New subscriber added</p>
-                  <p className="text-gray-600">4 hours ago</p>
-                </div>
-                <div className="text-sm">
-                  <p className="font-medium text-gray-900">Template "Welcome Series" updated</p>
-                  <p className="text-gray-600">1 day ago</p>
-                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Need More Insights?</h3>
+                <p className="text-gray-600 mb-6">Get personalized recommendations and answers about this prospect</p>
+                <Button className="mixmax-button-primary w-full">
+                  <Star className="h-4 w-4 mr-2" />
+                  ASK AI Anything
+                </Button>
               </CardContent>
             </Card>
           </div>
