@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    
+    /* Mixmax Brand Colors */
+    --primary: 248 100% 70%;  /* Mixmax signature purple #6366f1 */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 217 91% 60%;  /* Mixmax blue accent #3b82f6 */
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 248 100% 70%;
+    
+    /* Mixmax Status Colors */
+    --success: 142 76% 36%;  /* Green for positive status */
+    --warning: 38 92% 50%;   /* Orange for medium status */
+    --info: 217 91% 60%;     /* Blue for info status */
+    --chart-1: 248 100% 70%;
+    --chart-2: 217 91% 60%;
+    --chart-3: 142 76% 36%;
+    --chart-4: 38 92% 50%;
+    --chart-5: 340 75% 55%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 248 100% 70%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 248 100% 70%;
+  }
+  
+  .dark {
+    --background: 222 84% 5%;  /* Mixmax dark background */
+    --foreground: 0 0% 98%;
+    --card: 222 84% 5%;
+    --card-foreground: 0 0% 98%;
+    --popover: 222 84% 5%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 248 100% 70%;
+    --primary-foreground: 222 84% 5%;
+    --secondary: 217 32% 17%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 222 84% 5%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
+    --ring: 248 100% 70%;
+    --sidebar-background: 222 84% 5%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 248 100% 70%;
+    --sidebar-primary-foreground: 222 84% 5%;
+    --sidebar-accent: 217 32% 17%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 217 32% 17%;
+    --sidebar-ring: 248 100% 70%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Mixmax Custom Gradient Classes */
+@layer components {
+  .mixmax-gradient {
+    background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+  }
+  
+  .mixmax-gradient-text {
+    background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .mixmax-card {
+    @apply bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+  
+  .mixmax-button-primary {
+    @apply bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 text-white font-medium px-4 py-2 rounded-md transition-all duration-200;
+  }
+  
+  .mixmax-status-high {
+    @apply bg-red-100 text-red-800 border-red-200;
+  }
+  
+  .mixmax-status-medium {
+    @apply bg-yellow-100 text-yellow-800 border-yellow-200;
+  }
+  
+  .mixmax-status-positive {
+    @apply bg-green-100 text-green-800 border-green-200;
+  }
+}
